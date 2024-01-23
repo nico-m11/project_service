@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { Redirect, Switch, Route } from "react-router-dom";
 import { LayoutSplashScreen, ContentRoute } from "../_metronic/layout";
 
-import { MyPage } from "./pages/MyPage";
+import { Product } from "./pages/Product";
 import { DashboardPage } from "./pages/DashboardPage";
 import { Faq } from "./modules/Auth/pages/Faq";
 
@@ -33,7 +33,7 @@ export default function BasePage() {
           <Redirect exact from="/" to="/dashboard" />
         }
         <ContentRoute path="/dashboard" component={DashboardPage} />
-        <ContentRoute path="/product" component={MyPage} />
+        <ContentRoute path="/product" component={Product} />
         <ContentRoute path="/faq" component={Faq} />
         <Route path="/user-profile" component={UserProfilepage} />
         <Redirect to="error/error-v1" />

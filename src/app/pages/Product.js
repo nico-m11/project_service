@@ -10,7 +10,9 @@ import {
   SortingState,
   IntegratedSorting,
   PagingState,
-  IntegratedPaging
+  IntegratedPaging,
+  FilteringState,
+  IntegratedFiltering
 } from "@devexpress/dx-react-grid";
 import {
   Grid,
@@ -18,12 +20,13 @@ import {
   TableHeaderRow,
   TableColumnResizing,
   PagingPanel,
+  TableFilterRow
 } from "@devexpress/dx-react-grid-bootstrap4";
 import "@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css";
 
 import config from "../../config/config";
 
-export function MyPage() {
+export function Product() {
   const user = useSelector((state) => state.auth.user);
   const [loading, setLoading] = useState(false);
   const [dataProduct, setDataProduct] = useState([]);
@@ -42,7 +45,8 @@ export function MyPage() {
     };
 
     fetch(
-      config.apiUrl + "products/GetAllProductsFromDescriptionAndReference.php",
+      //config.apiUrl + "",
+      'https://jsonplaceholder.typicode.com/posts',
       requestOptions
     )
       .then((response) => response.json())
@@ -52,24 +56,17 @@ export function MyPage() {
       });
   }
 
+  console.log(dataProduct)
+
   const [sorting, setSorting] = useState([{ columnName: "", direction: "" }]);
 
   const [columns] = useState([
-    { name: "ean13", title: "Ean13" },
-    { name: "name", title: "Nome" },
-    { name: "price", title: "Prezzo" },
-    { name: "wholesale_price", title: "wholesale_price" },
-    { name: "reference", title: "reference" }
-
+    { name: "title", title: "title" },
+    { name: "body", title: "body" },
   ]);
-
-
   const [defaultColumnWidths] = useState([
-    { columnName: "ean13", width: 150 },
-    { columnName: "name", width: 250 },
-    { columnName: "price", width: 150 },
-    { columnName: "wholesale_price", width: 250 },
-    { columnName: "reference", width: 150 },
+    { columnName: "title", width: 150 },
+    { columnName: "body", width: 700 },
   ]);
 
   return (
@@ -89,11 +86,14 @@ export function MyPage() {
           onSortingChange={setSorting}
         />
         <IntegratedSorting />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
         <Table />
         <TableColumnResizing 
           defaultColumnWidths={defaultColumnWidths} 
         />
         <TableHeaderRow />
+        <TableFilterRow />
         <PagingPanel />
       </Grid>
       </div>
