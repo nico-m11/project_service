@@ -12,7 +12,8 @@ import {
   PagingState,
   IntegratedPaging,
   FilteringState,
-  IntegratedFiltering
+  IntegratedFiltering,
+  SelectionState,
 } from "@devexpress/dx-react-grid";
 import {
   Grid,
@@ -20,7 +21,8 @@ import {
   TableHeaderRow,
   TableColumnResizing,
   PagingPanel,
-  TableFilterRow
+  TableFilterRow,
+  TableSelection,
 } from "@devexpress/dx-react-grid-bootstrap4";
 import "@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css";
 
@@ -30,6 +32,7 @@ export function Product() {
   const user = useSelector((state) => state.auth.user);
   const [loading, setLoading] = useState(false);
   const [dataProduct, setDataProduct] = useState([]);
+
   useEffect(() => {
     GetData();
   }, []);
@@ -46,7 +49,7 @@ export function Product() {
 
     fetch(
       //config.apiUrl + "",
-      'https://jsonplaceholder.typicode.com/posts',
+      "https://jsonplaceholder.typicode.com/posts",
       requestOptions
     )
       .then((response) => response.json())
@@ -56,9 +59,8 @@ export function Product() {
       });
   }
 
-  console.log(dataProduct)
-
   const [sorting, setSorting] = useState([{ columnName: "", direction: "" }]);
+  const [selection, setSelection] = useState([]); // questo vedere meglio funzionamento
 
   const [columns] = useState([
     { name: "title", title: "title" },
@@ -71,31 +73,25 @@ export function Product() {
 
   return (
     <>
-     <div className="card">
-      <Grid
-        rows={dataProduct}
-        columns={columns}
-      >
-        <PagingState
-          defaultCurrentPage={0}
-          pageSize={15}
-        />
-        <IntegratedPaging />
-        <SortingState
-          sorting={sorting}
-          onSortingChange={setSorting}
-        />
-        <IntegratedSorting />
-        <FilteringState defaultFilters={[]} />
-        <IntegratedFiltering />
-        <Table />
-        <TableColumnResizing 
-          defaultColumnWidths={defaultColumnWidths} 
-        />
-        <TableHeaderRow />
-        <TableFilterRow />
-        <PagingPanel />
-      </Grid>
+      <div className="card">
+        <Grid rows={dataProduct} columns={columns}>
+          <SelectionState
+            selection={selection}
+            onSelectionChange={setSelection}
+          />
+          <PagingState defaultCurrentPage={0} pageSize={20} />
+          <IntegratedPaging />
+          <SortingState sorting={sorting} onSortingChange={setSorting} />
+          <IntegratedSorting />
+          <FilteringState defaultFilters={[]} />
+          <IntegratedFiltering />
+          <Table />
+          <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+          <TableHeaderRow />
+          <TableFilterRow />
+          <PagingPanel />
+          <TableSelection />
+        </Grid>
       </div>
     </>
   );
