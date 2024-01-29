@@ -172,14 +172,13 @@ class Users
         VALUES ('$name','$username','$email','$accesToken','$password', 1, 0, '$role')";
 
         $stmt = $this->conn->prepare($sql);
-
-        //execute query
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
+        try {
+            $stmt->execute();
+            $stmt->rowCount();
             $stmt->fetch(PDO::FETCH_ASSOC);
-            return true . '  Create User';
-        } else {
-            return false . '  No User Create';
+            return true;
+        } catch(Exception) {
+            throw new Exception("User not create");
         }
     }
 
