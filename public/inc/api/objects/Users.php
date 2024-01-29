@@ -167,7 +167,9 @@ class Users
         $role = isset($output['role']) ? $output['role'] : 0;
         $accesToken = "access-token-" . $this->generateRandomString(32);
 
-        $sql = "INSERT INTO `users`( `name`, `username`, `email`, `accessToken`, `password`, `active`, `deleted`, `role`) VALUES ('$name','$username','$email','$accesToken','$password', 1, 0, '$role')";
+        $sql = "INSERT INTO 
+        `users`( `name`, `username`, `email`, `accessToken`, `password`, `active`, `deleted`, `role`) 
+        VALUES ('$name','$username','$email','$accesToken','$password', 1, 0, '$role')";
 
         $stmt = $this->conn->prepare($sql);
 
