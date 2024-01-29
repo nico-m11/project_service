@@ -182,7 +182,7 @@ class Users
         }
     }
 
-    public function GetUserByToken($token)
+    public function GetUserByToken(array $token): array
     {
 
         $token = $token['accessToken'];
@@ -336,7 +336,7 @@ class Users
             return $e->getMessage();
         }
     }
-    public function GetUser($users): array
+    public function GetUser(array $users): array
     {
         $result = array();
         foreach ($users as $key => $user) {
@@ -346,7 +346,7 @@ class Users
 
         return $result;
     }
-    public function GetUserInfo($id_user): array
+    public function GetUserInfo(int $id_user): array
     {
 
 
