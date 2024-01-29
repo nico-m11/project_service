@@ -160,8 +160,6 @@ class Users
     // Create User 
     public function CreateUser($output)
     {
-
-
         $email = isset($output['email']) ? $output['email'] : '';
         $password = isset($output['password']) ? hash("sha256", $output['password']) : '';
         $name = isset($output['name']) ? $output['name'] : '';
