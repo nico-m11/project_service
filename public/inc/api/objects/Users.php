@@ -158,7 +158,7 @@ class Users
     }
 
     // Create User 
-    public function CreateUser($output)
+    public function CreateUser(array $output): bool
     {
         $email = isset($output['email']) ? $output['email'] : '';
         $password = isset($output['password']) ? hash("sha256", $output['password']) : '';
@@ -177,7 +177,7 @@ class Users
             $stmt->rowCount();
             $stmt->fetch(PDO::FETCH_ASSOC);
             return true;
-        } catch(Exception) {
+        } catch (Exception) {
             throw new Exception("User not create");
         }
     }
