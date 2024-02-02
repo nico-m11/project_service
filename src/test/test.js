@@ -23,21 +23,18 @@ let seleniumDriver = require("selenium-webdriver");
 // get the browser instance
 let seleniumBuilder = new seleniumDriver.Builder();
 let browserTab = seleniumBuilder.forBrowser("chrome").build();
-
 // open the browser
 let browserWindow =
-    browserTab.get("https://members.crurated.com/");
+    browserTab.get("https://sp.agenziaentrate.gov.it/rp/poste/sel");
 
 browserWindow
     .then(() => {
-        browserTab.findElement(By.name("email")).sendKeys("nicola.melito@gbrain.it", Key.RETURN);
-        browserTab.findElement(By.name("password")).sendKeys("Maggiore11.", Key.RETURN);
-        browserTab.findElement(By.id('kt_login_signin_submit')).click();
+        setTimeout(function waitTwoSeconds() {
+        browserTab.findElement(By.className('btn btn-primary btn-login btn-login-xs')).click();
+        }, 15000)
+        //browserTab.findElement(By.id("username")).sendKeys("nicola.melito@gbrain.it", Key.RETURN);
 
-
-        setInterval(function () {
-            browserTab.quit();
-        }, 10000);
+        // browserTab.findElement(By.xpath("//a[@href='https://sp.agenziaentrate.gov.it/rp/poste/sel']")).click();
     })
     .catch(function (error) {
         console.log("Error ", error);
