@@ -1,40 +1,23 @@
 const {By, Key, Builder} = require("selenium-webdriver");
 require("chromedriver");
-//
-// async function test_case(){
-//     let driver = await new Builder().forBrowser("chrome").build();
-//
-//     await driver.get("https://google.com");
-//
-//     //cliccco accetta i cookie
-//     await driver.findElement(By.id('L2AGLb')).click();
-//     //faccio la ricerca di hello world nell'input di ricerca
-//     await driver.findElement(By.name("q")).sendKeys("Hello, World!", Key.RETURN);
-//
-//     setInterval(function(){
-//         driver.quit();
-//     }, 10000);
-// }
-//
-// test_case()
 
 
 let seleniumDriver = require("selenium-webdriver");
+const {elementLocated} = require("@material-ui/core/test-utils/until");
 // get the browser instance
 let seleniumBuilder = new seleniumDriver.Builder();
 let browserTab = seleniumBuilder.forBrowser("chrome").build();
 // open the browser
-let browserWindow =
-    browserTab.get("https://sp.agenziaentrate.gov.it/rp/poste/sel");
+let browserWindow = browserTab.get("https://www.google.it/");
 
 browserWindow
     .then(() => {
+        browserTab.findElement(By.className('QS5gu sy4vM')).click();
+        browserTab.findElement(By.name("q")).sendKeys("Hello, World!", Key.RETURN);
         setTimeout(function waitTwoSeconds() {
-        browserTab.findElement(By.className('btn btn-primary btn-login btn-login-xs')).click();
-        }, 15000)
-        //browserTab.findElement(By.id("username")).sendKeys("nicola.melito@gbrain.it", Key.RETURN);
+            browserTab.findElement(By.linkText('Amiga E')).click();
+        }, 9000)
 
-        // browserTab.findElement(By.xpath("//a[@href='https://sp.agenziaentrate.gov.it/rp/poste/sel']")).click();
     })
     .catch(function (error) {
         console.log("Error ", error);
